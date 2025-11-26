@@ -16,13 +16,14 @@ st.title("Claims Analytics GenAI Dashboard")
 # Snowflake connection
 def get_connection():
     return snowflake.connector.connect(
-        user=os.getenv("SNOWFLAKE_USER"),
-        password=os.getenv("SNOWFLAKE_PASSWORD"),
-        account=os.getenv("SNOWFLAKE_ACCOUNT"),
-        role=os.getenv("SNOWFLAKE_ROLE", "ACCOUNTADMIN"),
-        database=os.getenv("SNOWFLAKE_DATABASE", "Cortext"),
-        schema=os.getenv("SNOWFLAKE_SCHEMA", "demo"),
-        warehouse=os.getenv("SNOWFLAKE_WAREHOUSE", "COMPUTE_WH")
+        user="kaunda",
+        password="(Udiot@20251126)",
+        account="ZEQWJME-NV17394",
+        host = "ZEQWJME-NV17394.snowflakecomputing.com",
+        role="ACCOUNTADMIN",
+        database="Cortext",
+        schema="demo",
+        warehouse="COMPUTE_WH"
     )
 
 # Query function
