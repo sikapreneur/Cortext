@@ -3,9 +3,9 @@ import streamlit as st
 import pandas as pd
 import snowflake.connector
 import os
-
-# Load environment variables (optional if using .env)
 from dotenv import load_dotenv
+
+# Load environment variables
 load_dotenv()
 
 # Page config
@@ -16,14 +16,13 @@ st.title("Claims Analytics GenAI Dashboard")
 # Snowflake connection
 def get_connection():
     return snowflake.connector.connect(
-        user="kaunda",
-        password="(Udiot@20251126)",
-        account="ZEQWJME-NV17394",
-        host = "ZEQWJME-NV17394.snowflakecomputing.com",
-        role="ACCOUNTADMIN",
-        database="Cortext",
-        schema="demo",
-        warehouse="COMPUTE_WH"
+        user=os.getenv("SNOWFLAKE_USER"),
+        password=os.getenv("SNOWFLAKE_PASSWORD"),
+        account=os.getenv("SNOWFLAKE_ACCOUNT"),
+        role=os.getenv("SNOWFLAKE_ROLE", "ACCOUNTADMIN"),
+        database=os.getenv("SNOWFLAKE_DATABASE", "Cortext"),
+        schema=os.getenv("SNOWFLAKE_SCHEMA", "demo"),
+        warehouse=os.getenv("SNOWFLAKE_WAREHOUSE", "COMPUTE_WH")
     )
 
 # Query function
@@ -58,3 +57,20 @@ st.dataframe(df)
 
 # Chart
 st.bar_chart(df.set_index("REGION")["TOTAL_AMOUNT"])
+
+# -------------------------------
+# Cortex Analyst Integration
+# -------------------------------
+st.subheader("Ask Cortex Analyst")
+user_query = st.text_area("Ask a question about claims data:")
+if st.button("Generate Insight"):
+    cortex_sql = f"""
+    SELECT SNOWFLAKE.CORTEX.COMPLETE('{user_query}', 
+    OBJECT_CONSTRUCT('data', (SELECT * FROM MASTERCLAIM LIMIT 100)));
+    """
+    try:
+        result_df = run_query(cortex_sql)
+        st.write("Cortex Response:")
+        st.write(result_df)
+    except Exception as e:
+        st.error(f"Error running Cortex query: {e}")
