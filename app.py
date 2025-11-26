@@ -5,7 +5,7 @@ import streamlit as st
 st.set_page_config(page_title="Cortext Analyst", layout="centered")
 
 # Heading
-st.title("Cortext Analyst")
+st.title("Cliam Analytic AI Dashboard")
 st.caption("Ask me anything about claims data.")
 
 # ✅ Chat Interface Only
