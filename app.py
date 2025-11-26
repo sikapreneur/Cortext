@@ -1,11 +1,7 @@
+
 import streamlit as st
 import pandas as pd
 import snowflake.connector
-import os
-
-# Load environment variables (optional if using .env)
-from dotenv import load_dotenv
-load_dotenv()
 
 # Page config
 st.set_page_config(page_title="Claims Dashboard", layout="wide")
@@ -50,9 +46,37 @@ query += " GROUP BY REGION, CLAIMSTATUS ORDER BY TOTAL_AMOUNT DESC"
 # Run query
 df = run_query(query)
 
-# Display results
+# Display dashboard
 st.subheader("Claims Summary")
 st.dataframe(df)
-
-# Chart
 st.bar_chart(df.set_index("REGION")["TOTAL_AMOUNT"])
+
+# -------------------------------
+# ✅ Chat Interface
+# -------------------------------
+st.subheader("Ask Cortext Analyst")
+if "messages" not in st.session_state:
+    st.session_state.messages = [
+        {"role": "assistant", "content": "Hi Kaunda! Ask me anything about claims data."}
+    ]
+
+# Display chat history
+for msg in st.session_state.messages:
+    with st.chat_message(msg["role"]):
+        st.markdown(msg["content"])
+
+# Chat input
+user_input = st.chat_input("Type your question...")
+if user_input:
+    st.session_state.messages.append({"role": "user", "content": user_input})
+    with st.chat_message("user"):
+        st.markdown(user_input)
+
+    # Simple logic: if user asks for data, run query dynamically
+    if "total claims" in user_input.lower():
+        bot_reply = f"Here is the summary:\n\n{df.to_markdown()}"
+    else:
+        bot_reply = "I'm connected to Snowflake. Soon I'll answer with AI-powered insights!"
+
+    st.session_state.messages.append({"role": "assistant", "content": bot_reply})
+    with st.chat_message("assistant"):
