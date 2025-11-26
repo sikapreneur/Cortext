@@ -13,7 +13,7 @@ def get_connection():
     return snowflake.connector.connect(
         user="kaunda",
         password="(Udiot@20251126)",
-        account="ZEQWJME-NV17394",
+        account="ZEQWJME-NV17394.snowflakecomputing.com",
         role="ACCOUNTADMIN",
         database="Cortext",
         schema="demo",
