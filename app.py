@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 import snowflake.connector
@@ -11,13 +10,15 @@ st.title("Claims Analytics GenAI Dashboard")
 # Snowflake connection
 def get_connection():
     return snowflake.connector.connect(
-        user="kaunda",
-        password="(Udiot@20251126)",
-        account="ZEQWJME-NV17394.snowflakecomputing.com",
-        role="ACCOUNTADMIN",
-        database="Cortext",
-        schema="demo",
-        warehouse="COMPUTE_WH"
+        SNOWFLAKE_USER="kaunda",
+        SNOWFLAKE_PASSWORD="(Udiot@20251126)",
+        SNOWFLAKE_ACCOUNT="ZEQWJME-NV17394",
+        SNOWFLAKE_HOST="ZEQWJME-NV17394.snowflakecomputing.com",
+        SNOWFLAKE_ROLE="ACCOUNTADMIN",
+        SNOWFLAKE_DATABASE="Cortext",
+        SNOWFLAKE_SCHEMA="demo",
+        SNOWFLAKE_WAREHOUSE="COMPUTE_WH"
+
     )
 
 # Query function
