@@ -7,7 +7,7 @@ import snowflake.connector
 st.set_page_config(page_title="Cortext Analyst", layout="centered")
 
 # Heading
-st.title("Cortext Analyst")
+st.title("Claims Analytics AI Dashboard")
 st.caption("Ask me anything about claims data.")
 
 # ✅ Snowflake connection
