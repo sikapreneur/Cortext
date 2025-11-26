@@ -10,14 +10,14 @@ st.title("Claims Analytics GenAI Dashboard")
 # Snowflake connection
 def get_connection():
     return snowflake.connector.connect(
-        SNOWFLAKE_USER="kaunda",
-        SNOWFLAKE_PASSWORD="(Udiot@20251126)",
-        SNOWFLAKE_ACCOUNT="ZEQWJME-NV17394",
-        SNOWFLAKE_HOST="ZEQWJME-NV17394.snowflakecomputing.com",
-        SNOWFLAKE_ROLE="ACCOUNTADMIN",
-        SNOWFLAKE_DATABASE="Cortext",
-        SNOWFLAKE_SCHEMA="demo",
-        SNOWFLAKE_WAREHOUSE="COMPUTE_WH"
+        USER="kaunda",
+        PASSWORD="(Udiot@20251126)",
+        ACCOUNT="ZEQWJME-NV17394",
+        HOST="ZEQWJME-NV17394.snowflakecomputing.com",
+        ROLE="ACCOUNTADMIN",
+        DATABASE="Cortext",
+        SCHEMA="demo",
+        WAREHOUSE="COMPUTE_WH"
 
     )
 
